@@ -1,0 +1,7 @@
+deployments:
+  app:
+    tag: latest
+    #Environtments: Development, Production
+    environment: Development
+    #If OS Windows use: /run/desktop/mnt/host/<...>
+    hostPath: /home/hlcpereira/Projetos/GeoLocalizer

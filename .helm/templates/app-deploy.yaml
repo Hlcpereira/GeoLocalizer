@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deploy
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-deploy
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-deploy
+    spec:
+      terminationGracePeriodSeconds: 10
+      {{- if eq .Values.deployments.app.environment "Development" }}
+      volumes:
+      - name: environment-volume
+        hostPath:
+          path: {{ .Values.deployments.app.hostPath }}
+          type: DirectoryOrCreate
+      {{ end }}
+      containers:
+      - name: geolocalizer
+        image: hlcpereira/geolocalizer:{{ .Values.deployments.app.tag | lower }}
+        imagePullPolicy: Always
+        {{- if eq .Values.deployments.app.environment "Development" }}
+        stdin: true
+        tty: true
+        command: [ "/bin/bash", "-c", "--" ]
+        args: [ "while true; do sleep 5000; done;" ]
+        {{ end }}
+        ports:
+        - containerPort: 80
+          name: api
+        - containerPort: 443
+          name: api-ssl
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          {{- if eq .Values.deployments.app.environment "Development" }}
+          value: {{ .Values.deployments.app.environment }}
+          {{ end }}
+          {{- if eq .Values.deployments.app.environment "Production" }}
+          value: "Staging"
+          {{ end }}
+        - name: ASPNETCORE_URLS
+          value: "http://+"
+        ports:
+        - containerPort: 5432
+          name: database-port
+        {{- if eq .Values.deployments.app.environment "Development" }}
+        volumeMounts:
+          - mountPath: /environment
+            name: environment-volume
+        {{ end }}
+      imagePullSecrets:
+        - name: container-registry
