@@ -11,12 +11,16 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
+using Hlcpereira.GeoLocalizer.Domain.AppServices;
+using Hlcpereira.GeoLocalizer.Domain.AppServices.Contracts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 var services = builder.Services;
 
+services.AddScoped<IGeoLocalizationService, GeoLocalizationService>();
 services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();

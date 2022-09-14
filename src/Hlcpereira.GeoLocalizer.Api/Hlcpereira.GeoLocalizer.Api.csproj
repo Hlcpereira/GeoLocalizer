@@ -13,7 +13,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hlcpereira.GeoLocalizer.CrossCutting\Hlcpereira.GeoLocalizer.CrossCutting.csproj" />
+    <ProjectReference Include="..\Hlcpereira.GeoLocalizer.Domain\Hlcpereira.GeoLocalizer.Domain.csproj" />
   </ItemGroup>
 
 </Project>
