@@ -10,7 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hlcpereira.GeoLocalizer.CrossCutting\Hlcpereira.GeoLocalizer.CrossCutting.csproj" />
   </ItemGroup>
 
 </Project>

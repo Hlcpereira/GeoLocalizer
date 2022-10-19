@@ -5,3 +5,5 @@ deployments:
     environment: Development
     #If OS Windows use: /run/desktop/mnt/host/<...>
     hostPath: /home/hlcpereira/Projetos/GeoLocalizer
+    googleApi:
+      apiKey: dummy

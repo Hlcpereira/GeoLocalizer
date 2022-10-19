@@ -43,6 +43,8 @@ spec:
           {{- if eq .Values.deployments.app.environment "Production" }}
           value: "Staging"
           {{ end }}
+        - name: GoogleApiConfig__ApiKey
+          value: {{ .Values.deployments.api.googleApi.apiKey }}
         - name: ASPNETCORE_URLS
           value: "http://+"
         ports:

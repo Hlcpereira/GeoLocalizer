@@ -7,11 +7,12 @@
 using System.Threading.Tasks;
 
 using Hlcpereira.GeoLocalizer.Domain.AppServices.Commands;
+using Hlcpereira.GeoLocalizer.Domain.Entities;
 
 namespace Hlcpereira.GeoLocalizer.Domain.AppServices.Contracts
 {
     public interface IGeoLocalizationService
     {
-        public Task<string> CalculateLocation(LocateCommand locateCommand);
+        public Task<Address> GetLocation(LocateCommand command);
     }
 }

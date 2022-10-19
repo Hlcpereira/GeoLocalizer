@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Hlcpereira.GeoLocalizer.Domain.AppServices.Commands;
 using Hlcpereira.GeoLocalizer.Domain.AppServices.Contracts;
+using Hlcpereira.GeoLocalizer.Domain.Entities;
 
 namespace Hlcpereira.GeoLocalizer.Api.Controllers.V1
 {
@@ -27,9 +28,9 @@ namespace Hlcpereira.GeoLocalizer.Api.Controllers.V1
         }
 
         [HttpPost]
-        public async Task<string> Post([FromBody] LocateCommand locateCommand)
+        public async Task<Address> Post([FromBody] LocateCommand locateCommand)
         {
-            var response = await _geoLocalizationService.CalculateLocation(locateCommand);
+            var response = await _geoLocalizationService.GetLocation(locateCommand);
             return response;
         }
     }

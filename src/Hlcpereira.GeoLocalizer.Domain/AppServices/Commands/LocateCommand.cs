@@ -8,6 +8,8 @@ namespace Hlcpereira.GeoLocalizer.Domain.AppServices.Commands
 {
     public class LocateCommand
     {
-        public string IpAddress { get; set; }
+        public string Latitude { get; set; }
+
+        public string Longitude { get; set; }
     }
 }

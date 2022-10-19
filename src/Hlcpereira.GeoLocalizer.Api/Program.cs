@@ -7,10 +7,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+using System;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
+using Hlcpereira.GeoLocalizer.CrossCutting.Configs;
 using Hlcpereira.GeoLocalizer.Domain.AppServices;
 using Hlcpereira.GeoLocalizer.Domain.AppServices.Contracts;
 
@@ -19,6 +22,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var services = builder.Services;
+
+services.Configure<GoogleApiConfig>(
+    builder.Configuration.GetSection(GoogleApiConfig.GApiConfig));
+
+var GoogleApiConfigInstance = (GoogleApiConfig) Activator.CreateInstance(typeof(GoogleApiConfig));
+builder.Configuration.Bind(GoogleApiConfigInstance?.GetType().Name, GoogleApiConfigInstance);
+if (GoogleApiConfigInstance != null) builder.Services.AddSingleton(GoogleApiConfigInstance);
 
 services.AddScoped<IGeoLocalizationService, GeoLocalizationService>();
 services.AddControllers();
